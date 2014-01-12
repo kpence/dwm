@@ -1,0 +1,4 @@
+static void
+focusmaster(const Arg *arg) {
+    focus(selmon->clients);
+}

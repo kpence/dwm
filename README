@@ -1,3 +1,22 @@
+CUSTOM README INFO------
+
+    Make a script called startdwm.sh with this code
+-----------------------------------------------
+while true; do
+    # Log stderror to a file 
+    dwm 2> ~/.dwm.log
+done
+-----------------------------------------------
+
+    Then put this line at the bottom of your .xinitrc
+-----------------------------------------------
+exec startdwm.sh # exec dwm
+-----------------------------------------------
+
+    This will let you be able to restart dwm without closing any applications so you can easily reconfigure dwm
+
+CUSTOM README INFO DONE-------
+
 dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
@@ -49,3 +68,7 @@ Configuration
 -------------
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
+
+
+
+

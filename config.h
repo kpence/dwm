@@ -60,6 +60,7 @@ static void vieworprev(const Arg *arg);
 static void focusstackf(const Arg *arg);
 static void nametag(const Arg *arg);
 static void moveresize(const Arg *arg);
+static void untogglefloating(const Arg *arg);
 
 /* CUSTOM enums */
 enum {DIR_RIGHT, DIR_UP, DIR_LEFT, DIR_DOWN};
@@ -94,7 +95,9 @@ static Key keys[] = {
     { MODKEY|ControlMask,           XK_p,      shiftview,      {.i = -1 } },
     { MODKEY|ControlMask,           XK_n,      shiftview,      {.i = +1 } },
     { MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
+    { MODKEY|ShiftMask,             XK_j,      untogglefloating,       {0} },
     { MODKEY|ShiftMask,             XK_k,      pushup,         {0} },
+    { MODKEY|ShiftMask,             XK_k,      untogglefloating,         {0} },
     { MOD4KEY,                      XK_y,      spawn,          SHCMD("sleep 1 && xdotool key --clearmodifiers Shift+Insert") },
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstackf,    {.i = +1 } },
@@ -110,12 +113,18 @@ static Key keys[] = {
     { MOD4KEY,                      XK_k,      moveresize,     {.v = (int []){ 0, -48, 0, 0 }}},
     { MOD4KEY,                      XK_l,      moveresize,     {.v = (int []){ 48, 0, 0, 0 }}},
     { MOD4KEY,                      XK_h,      moveresize,     {.v = (int []){ -48, 0, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_k,      moveresize,     {.v = (int []){ 0, -2, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_j,      moveresize,     {.v = (int []){ 0, 2, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_l,      moveresize,     {.v = (int []){ 4, 0, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_h,      moveresize,     {.v = (int []){ -4, 0, 0, 0 }}},
+
     { MOD4KEY|ShiftMask,            XK_j,      moveresize,     {.v = (int []){ 0, 0, 0, 48 }}},
     { MOD4KEY|ShiftMask,            XK_k,      moveresize,     {.v = (int []){ 0, 0, 0, -48 }}},
     { MOD4KEY|ShiftMask,            XK_l,      moveresize,     {.v = (int []){ 0, 0, 48, 0 }}},
     { MOD4KEY|ShiftMask,            XK_h,      moveresize,     {.v = (int []){ 0, 0, -48, 0 }}},
 
-    { MODKEY,                       XK_Return, zoom,           {0} },
+    { MODKEY,                       XK_Return, untogglefloating,    {0} },
+    { MODKEY,                       XK_Return, zoom,          {0} },
     { MODKEY,                       XK_Return, warptosel,      {0} },
     { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
     { MODKEY,                       XK_Tab,    vieworprev,     {0} },
@@ -123,6 +132,7 @@ static Key keys[] = {
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 //  { MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
     { MODKEY,                       XK_f,      togglefloating, {0} },
+    { MOD4KEY,                      XK_f,      togglefloating, {0} },
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
     { MODKEY,                       XK_apostrophe,      nametag,        {0} },
 //  { MODKEY,                       XK_space,  setlayout,      {0} },
@@ -137,11 +147,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask|ControlMask, XK_m,      spawn,          {.v = touchpadon} },
 //  { MODKEY|ShiftMask,             XK_y,      xclipyankf,     {0} },
 //  { MODKEY|ShiftMask,             XK_p,      xclipputf,      {0} },
-    { MOD4KEY|ControlMask,          XK_l,      shiftmousepos,  {.v = (int []){ 4,  0}} },
-    { MOD4KEY|ControlMask,          XK_h,      shiftmousepos,  {.v = (int []){ -4, 0}} },
-    { MOD4KEY|ControlMask,          XK_k,      shiftmousepos,  {.v = (int []){ 0, -4}} },
-    { MOD4KEY|ControlMask,          XK_j,      shiftmousepos,  {.v = (int []){ 0,  4}} },
-    { MOD4KEY|ControlMask,          XK_c,      spawn,          SHCMD("clog") },
+    { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
     { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh u") },
     { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh d") },
     TAGKEYS(                        XK_1,                      0)
@@ -164,7 +170,8 @@ static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+	{ ClkWinTitle,          0,              Button2,        untogglefloating,          {0} },
+	{ ClkWinTitle,          0,              Button2,        zoom,          {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
@@ -176,6 +183,12 @@ static Button buttons[] = {
 };
 
 //
+void
+untogglefloating(const Arg *arg) {
+    if(selmon->sel->isfloating)
+        togglefloating(NULL);
+}
+
 void
 shiftview(const Arg *arg) {
     Arg shifted;

@@ -133,6 +133,7 @@ static Key keys[] = {
 //  { MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
     { MODKEY,                       XK_f,      togglefloating, {0} },
     { MOD4KEY,                      XK_f,      togglefloating, {0} },
+    { MODKEY,                       XK_m,      untogglefloating,      {0} },
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
     { MODKEY,                       XK_apostrophe,      nametag,        {0} },
 //  { MODKEY,                       XK_space,  setlayout,      {0} },

@@ -118,6 +118,11 @@ static Key keys[] = {
     { MOD4KEY|ControlMask,          XK_l,      moveresize,     {.v = (int []){ 4, 0, 0, 0 }}},
     { MOD4KEY|ControlMask,          XK_h,      moveresize,     {.v = (int []){ -4, 0, 0, 0 }}},
 
+    { MOD4KEY|ControlMask,          XK_a,      moveresize,     {.v = (int []){-1, 0, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_e,      moveresize,     {.v = (int []){ 1, 0, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_u,      moveresize,     {.v = (int []){ 0, -1, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_d,      moveresize,     {.v = (int []){ 0, 1, 0, 0 }}},
+
     { MOD4KEY|ShiftMask,            XK_j,      moveresize,     {.v = (int []){ 0, 0, 0, 48 }}},
     { MOD4KEY|ShiftMask,            XK_k,      moveresize,     {.v = (int []){ 0, 0, 0, -48 }}},
     { MOD4KEY|ShiftMask,            XK_l,      moveresize,     {.v = (int []){ 0, 0, 48, 0 }}},

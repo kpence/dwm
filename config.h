@@ -99,6 +99,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_k,      pushup,         {0} },
     { MODKEY|ShiftMask,             XK_k,      untogglefloating,         {0} },
     { MOD4KEY,                      XK_y,      spawn,          SHCMD("sleep 1 && xdotool key --clearmodifiers Shift+Insert") },
+    { 0,                            XK_Print,  spawn,          SHCMD("scrot") },
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstackf,    {.i = +1 } },
 /**/{ MODKEY,                       XK_j,      warptosel,      {0} },
@@ -134,6 +135,7 @@ static Key keys[] = {
     { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
     { MODKEY,                       XK_Tab,    vieworprev,     {0} },
     { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+    { MODKEY,                       XK_t,      untogglefloating,    {0} },
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 //  { MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
     { MODKEY,                       XK_f,      togglefloating, {0} },
@@ -156,6 +158,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
     { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh u") },
     { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh d") },
+    { 0,                           0x1008ff41, spawn,          SHCMD("") },
     TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
     TAGKEYS(                        XK_3,                      2)

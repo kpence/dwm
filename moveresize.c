@@ -68,6 +68,7 @@ static void
 moveresize(const Arg *arg) {
     XEvent ev;
     Monitor *m = selmon;
+    Client *c;
 
     if(!(m->sel && arg && arg->v))
         return;
@@ -79,6 +80,16 @@ moveresize(const Arg *arg) {
         m->sel->w + ((int *)arg->v)[2],
         m->sel->h + ((int *)arg->v)[3],
         True);
+
+    /* NEW */
+    c = m->sel;
+
+    if((m = recttomon(c->x, c->y, c->w, c->h)) != selmon) {
+        sendmon(c, m);
+        selmon = m;
+        focus(NULL);
+    }
+    /* END OF NEW */
 
     while(XCheckMaskEvent(dpy, EnterWindowMask, &ev));
 }

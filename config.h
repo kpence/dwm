@@ -111,6 +111,9 @@ static Key keys[] = {
     { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
     { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 
+    { MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.01} },
+    { MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.01} },
+
     { MOD4KEY,                      XK_j,      moveresize,     {.v = (int []){ 0, 48, 0, 0 }}},
     { MOD4KEY,                      XK_k,      moveresize,     {.v = (int []){ 0, -48, 0, 0 }}},
     { MOD4KEY,                      XK_l,      moveresize,     {.v = (int []){ 48, 0, 0, 0 }}},
@@ -159,8 +162,8 @@ static Key keys[] = {
     { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
     { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh u") },
     { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh d") },
-    { MODKEY,                      0x1008ff13, spawn,          SHCMD("incvolume.sh su") },
     { MODKEY,                      0x1008ff11, spawn,          SHCMD("incvolume.sh sd") },
+    { MODKEY,                      0x1008ff13, spawn,          SHCMD("incvolume.sh su") },
     { 0,                           0x1008ff41, togglemouse,    {0} },
     { 0,                           0x1008ff2d, spawn,          SHCMD("xscreensaver-command -l") },
     TAGKEYS(                        XK_1,                      0)

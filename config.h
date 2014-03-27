@@ -106,13 +106,17 @@ static Key keys[] = {
 /**/{ MODKEY,                       XK_j,      warptosel,      {0} },
     { MODKEY,                       XK_k,      focusstackf,    {.i = -1 } },
 /**/{ MODKEY,                       XK_k,      warptosel,      {0} },
-    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
     { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
     { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+    { MODKEY,                       XK_h,      warptosel,      {0} },
     { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+    { MODKEY,                       XK_l,      warptosel,      {0} },
 
     { MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.01} },
+    { MODKEY|ShiftMask,             XK_h,      warptosel,      {0} },
     { MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.01} },
+    { MODKEY|ShiftMask,             XK_l,      warptosel,      {0} },
 
     { MOD4KEY,                      XK_j,      moveresize,     {.v = (int []){ 0, 48, 0, 0 }}},
     { MOD4KEY,                      XK_k,      moveresize,     {.v = (int []){ 0, -48, 0, 0 }}},

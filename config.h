@@ -63,6 +63,7 @@ static void moveresize(const Arg *arg);
 static void untogglefloating(const Arg *arg);
 static void togglemouse(const Arg *arg);
 
+
 /* CUSTOM enums */
 enum {DIR_RIGHT, DIR_UP, DIR_LEFT, DIR_DOWN};
 
@@ -188,13 +189,19 @@ static Key keys[] = {
 
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+/* Button{1..5} are the left, middle, and right mouse buttons then scroll up and down respectively */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        untogglefloating,{0} },
+
+	{ ClkWinTitle,          0,              Button2,       untogglefloating,{0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkWinTitle,          MODKEY,         Button4,        setmfact,       {.i = +1} },
+	{ ClkWinTitle,          MODKEY,         Button5,        setmfact,       {.i = -1} },
+
+	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
+
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
@@ -202,14 +209,16 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button1,        vieworprev,     {0} }, // left click
 	{ ClkTagBar,            MODKEY,         Button1,        toggleview,     {0} },
 
-	{ ClkTagBar,            MODKEY,         Button2,        toggleview,     {0} }, // middle click
-	{ ClkTagBar,            0,              Button2,        toggleview,     {0} },
+	{ ClkTagBar,            0,              Button2,        toggleview,     {0} }, // middle click
+	{ ClkTagBar,            MODKEY,         Button2,        toggleview,     {0} },
 
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} }, // right click
-	{ ClkTagBar,            0,              Button3,        tag,            {0} },
+	{ ClkTagBar,            0,              Button3,        tag,            {0} }, // right click
+	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
-//
+/***********************************************************************************************/
+
+
 void
 togglemouse(const Arg *arg) {
     Arg s;

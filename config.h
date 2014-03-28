@@ -197,10 +197,10 @@ static Button buttons[] = {
 
 	{ ClkWinTitle,          0,              Button2,       untogglefloating,{0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkWinTitle,          MODKEY,         Button4,        setmfact,       {.f = +0.05} },
-	{ ClkWinTitle,          MODKEY,         Button5,        setmfact,       {.f = -0.05} },
-	{ ClkWinTitle,          MODKEY|ShiftMask,Button4,       setmfact,       {.f = +0.01} },
-	{ ClkWinTitle,          MODKEY|ShiftMask,Button5,       setmfact,       {.f = -0.01} },
+	{ ClkWinTitle,          MODKEY,         Button4,        setmfact,       {.f = -0.05} },
+	{ ClkWinTitle,          MODKEY,         Button5,        setmfact,       {.f = +0.05} },
+	{ ClkWinTitle,          MODKEY|ShiftMask,Button4,       setmfact,       {.f = -0.01} },
+	{ ClkWinTitle,          MODKEY|ShiftMask,Button5,       setmfact,       {.f = +0.01} },
 
 	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
 

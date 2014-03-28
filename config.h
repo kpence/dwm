@@ -98,10 +98,10 @@ static Key keys[] = {
     //
     { MODKEY|ControlMask,           XK_p,      shiftview,      {.i = -1 } },
     { MODKEY|ControlMask,           XK_n,      shiftview,      {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_p,      shiftview,      {.i = -1 } },
     { MODKEY|ShiftMask,             XK_p,      shifttag,       {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_n,      shiftview,      {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_p,      shiftview,      {.i = -1 } },
     { MODKEY|ShiftMask,             XK_n,      shifttag,       {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_n,      shiftview,      {.i = +1 } },
     //
     { MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
     { MODKEY|ShiftMask,             XK_j,      untogglefloating,       {0} },

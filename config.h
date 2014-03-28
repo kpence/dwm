@@ -54,6 +54,7 @@ static const Layout layouts[] = {
 
 /* CUSTOM functions declarations */
 static void shiftview(const Arg *arg);
+static void shifttag(const Arg *arg);
 static void warptosel(const Arg *arg);
 static void shiftmousepos(const Arg *arg);
 static void vieworprev(const Arg *arg);
@@ -146,26 +147,26 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
     { MODKEY,                       XK_t,      untogglefloating, {0} },
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-//  { MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
+//  { MODKEY,                       XK_g
     { MODKEY,                       XK_f,      togglefloating, {0} },
     { MOD4KEY,                      XK_f,      togglefloating, {0} },
     { MODKEY,                       XK_m,      untogglefloating,      {0} },
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
     { MODKEY,                       XK_apostrophe,      nametag,        {0} },
-//  { MODKEY,                       XK_space,  setlayout,      {0} },
-//  { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+//  { MODKEY,                       XK_space
+//  { MODKEY|ShiftMask,             XK_space
     { MODKEY,                       XK_0,      vieworprev,     {.ui = ~0 } },
     { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+    //
     { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-/**/{ MODKEY,                       XK_period, warptosel,      {0} },
-/**/{ MODKEY,                       XK_comma,  warptosel,      {0} },
+    { MODKEY,                       XK_period, warptosel,      {0} },
+    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+    { MODKEY,                       XK_comma,  warptosel,      {0} },
     { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
     { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_m,      spawn,          {.v = touchpadoff} },
-    { MODKEY|ShiftMask|ControlMask, XK_m,      spawn,          {.v = touchpadon} },
-//  { MODKEY|ShiftMask,             XK_y,      xclipyankf,     {0} },
-//  { MODKEY|ShiftMask,             XK_p,      xclipputf,      {0} },
+    { MODKEY|ControlMask,           XK_comma,  shifttag,       {.i = -1 } },
+    { MODKEY|ControlMask,           XK_period, shifttag,       {.i = +1 } },
+    //
     { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
     { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh u") },
     { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh d") },
@@ -258,6 +259,21 @@ shiftview(const Arg *arg) {
         shifted.ui = selmon->tagset[selmon->seltags] >> (- arg->i)
            | selmon->tagset[selmon->seltags] << (LENGTH(tags) + arg->i);
 
+    tag(&shifted);
+}
+
+void
+shifttag(const Arg *arg) {
+    Arg shifted;
+
+    if(arg->i > 0) // left circular shift
+        shifted.ui = (selmon->sel->tags << arg->i)
+           | (selmon->sel->tags >> (LENGTH(tags) - arg->i));
+
+    else // right circular shift
+        shifted.ui = selmon->sel->tags >> (- arg->i)
+           | selmon->sel->tags << (LENGTH(tags) + arg->i);
+
     view(&shifted);
 }
 
@@ -265,6 +281,10 @@ void
 warptosel(const Arg *arg) {
     XEvent ev;
  
+    if(!selmon->sel) {
+        return;
+    }
+
     if(selmon->sel)
         XWarpPointer(dpy, None, selmon->sel->win, 0, 0, 0, 0, 0, 0);
     XSync(dpy, False);

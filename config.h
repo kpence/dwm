@@ -174,10 +174,10 @@ static Key keys[] = {
     { MODKEY|ControlMask,           XK_period, shifttag,       {.i = +1 } },
     //
     { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
-    { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh m 2%+") },
-    { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh m 2%-") },
-    { MODKEY,                      0x1008ff11, spawn,          SHCMD("incvolume.sh s 2%+") },
-    { MODKEY,                      0x1008ff13, spawn,          SHCMD("incvolume.sh s 2%-") },
+    { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh m u") },
+    { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh m d") },
+    { MODKEY,                      0x1008ff11, spawn,          SHCMD("incvolume.sh s u") },
+    { MODKEY,                      0x1008ff13, spawn,          SHCMD("incvolume.sh s d") },
     { 0,                           0x1008ff41, togglemouse,    {0} },
     { 0,                           0x1008ff2d, spawn,          SHCMD("xscreensaver-command -l") },
     TAGKEYS(                        XK_1,                      0)

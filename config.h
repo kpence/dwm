@@ -90,96 +90,113 @@ static const char *touchpadoff[] = { "touchpad", "0", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
+
+    // Spawners
     { MODKEY,                       XK_o,      spawn,          {.v = dmenucmd } },
     { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+    { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
+    // ...
     { MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("wpa_gui") },
     { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dwb") },
-    { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
-    //
-    { MODKEY|ControlMask,           XK_p,      shiftview,      {.i = -1 } },
-    { MODKEY|ControlMask,           XK_n,      shiftview,      {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_p,      shifttag,       {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_p,      shiftview,      {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_n,      shifttag,       {.i = +1 } },
-    { MODKEY|ShiftMask,             XK_n,      shiftview,      {.i = +1 } },
-    //
-    { MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
-    { MODKEY|ShiftMask,             XK_j,      untogglefloating,       {0} },
-    { MODKEY|ShiftMask,             XK_k,      pushup,         {0} },
-    { MODKEY|ShiftMask,             XK_k,      untogglefloating,         {0} },
-    { MOD4KEY,                      XK_y,      spawn,          SHCMD("sleep 1 && xdotool key --clearmodifiers Shift+Insert") },
-    { 0,                            XK_Print,  spawn,          SHCMD("scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pic/scrot/'") },
-    { MODKEY,                       XK_b,      togglebar,      {0} },
-    { MODKEY,                       XK_j,      focusstackf,    {.i = +1 } },
-/**/{ MODKEY,                       XK_j,      warptosel,      {0} },
-    { MODKEY,                       XK_k,      focusstackf,    {.i = -1 } },
-/**/{ MODKEY,                       XK_k,      warptosel,      {0} },
-    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-    { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-    { MODKEY,                       XK_h,      warptosel,      {0} },
-    { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-    { MODKEY,                       XK_l,      warptosel,      {0} },
-
-    { MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.01} },
-    { MODKEY|ShiftMask,             XK_h,      warptosel,      {0} },
-    { MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.01} },
-    { MODKEY|ShiftMask,             XK_l,      warptosel,      {0} },
-
-    { MOD4KEY,                      XK_j,      moveresize,     {.v = (int []){ 0, 48, 0, 0 }}},
-    { MOD4KEY,                      XK_k,      moveresize,     {.v = (int []){ 0, -48, 0, 0 }}},
-    { MOD4KEY,                      XK_l,      moveresize,     {.v = (int []){ 48, 0, 0, 0 }}},
-    { MOD4KEY,                      XK_h,      moveresize,     {.v = (int []){ -48, 0, 0, 0 }}},
-    { MOD4KEY|ControlMask,          XK_k,      moveresize,     {.v = (int []){ 0, -2, 0, 0 }}},
-    { MOD4KEY|ControlMask,          XK_j,      moveresize,     {.v = (int []){ 0, 2, 0, 0 }}},
-    { MOD4KEY|ControlMask,          XK_l,      moveresize,     {.v = (int []){ 4, 0, 0, 0 }}},
-    { MOD4KEY|ControlMask,          XK_h,      moveresize,     {.v = (int []){ -4, 0, 0, 0 }}},
-
-    { MOD4KEY|ControlMask,          XK_a,      moveresize,     {.v = (int []){-1, 0, 0, 0 }}},
-    { MOD4KEY|ControlMask,          XK_e,      moveresize,     {.v = (int []){ 1, 0, 0, 0 }}},
-    { MOD4KEY|ControlMask,          XK_u,      moveresize,     {.v = (int []){ 0, -1, 0, 0 }}},
-    { MOD4KEY|ControlMask,          XK_d,      moveresize,     {.v = (int []){ 0, 1, 0, 0 }}},
-
-    { MOD4KEY|ShiftMask,            XK_j,      moveresize,     {.v = (int []){ 0, 0, 0, 48 }}},
-    { MOD4KEY|ShiftMask,            XK_k,      moveresize,     {.v = (int []){ 0, 0, 0, -48 }}},
-    { MOD4KEY|ShiftMask,            XK_l,      moveresize,     {.v = (int []){ 0, 0, 48, 0 }}},
-    { MOD4KEY|ShiftMask,            XK_h,      moveresize,     {.v = (int []){ 0, 0, -48, 0 }}},
-
-    { MODKEY,                       XK_Return, untogglefloating, {0} },
-    { MODKEY,                       XK_Return, zoom,           {0} },
-    { MODKEY,                       XK_Return, warptosel,      {0} },
-    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-    { MODKEY,                       XK_Tab,    vieworprev,     {0} },
-    { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-    { MODKEY,                       XK_t,      untogglefloating, {0} },
-    { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-//  { MODKEY,                       XK_g
-    { MODKEY,                       XK_f,      togglefloating, {0} },
-    { MOD4KEY,                      XK_f,      togglefloating, {0} },
-    { MODKEY,                       XK_m,      untogglefloating,      {0} },
-    { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-    { MODKEY,                       XK_apostrophe,      nametag,        {0} },
-//  { MODKEY,                       XK_space
-//  { MODKEY|ShiftMask,             XK_space
-    { MODKEY,                       XK_0,      vieworprev,     {.ui = ~0 } },
-    { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-    //
-    { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-    { MODKEY,                       XK_period, warptosel,      {0} },
-    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-    { MODKEY,                       XK_comma,  warptosel,      {0} },
-    { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-    { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-    { MODKEY|ControlMask,           XK_comma,  shifttag,       {.i = -1 } },
-    { MODKEY|ControlMask,           XK_period, shifttag,       {.i = +1 } },
-    //
     { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
+    // ...
+    { 0,                            XK_Print,  spawn,          SHCMD("scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pic/scrot/'") },
+    // ... (hardware buttons)
     { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh m u") },
     { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh m d") },
     { MODKEY,                      0x1008ff11, spawn,          SHCMD("incvolume.sh s u") },
     { MODKEY,                      0x1008ff13, spawn,          SHCMD("incvolume.sh s d") },
     { 0,                           0x1008ff41, togglemouse,    {0} },
     { 0,                           0x1008ff2d, spawn,          SHCMD("xscreensaver-command -l") },
+
+
+    // j/k (move/toggle selected clients)
+    { MODKEY,                       XK_j,      focusstackf,    {.i = +1 } },
+    { MODKEY,                       XK_j,      warptosel,      {0} },
+    { MODKEY,                       XK_k,      focusstackf,    {.i = -1 } },
+    { MODKEY,                       XK_k,      warptosel,      {0} },
+    { MODKEY|ShiftMask,             XK_j,      pushdown,       {0} },
+    { MODKEY|ShiftMask,             XK_j,      untogglefloating,       {0} },
+    { MODKEY|ShiftMask,             XK_k,      pushup,         {0} },
+    { MODKEY|ShiftMask,             XK_k,      untogglefloating,         {0} },
+
+    //
+    { MODKEY,                       XK_b,      togglebar,      {0} },
+    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+
+    // h/l (resize verticle stack split)
+    { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+    { MODKEY,                       XK_h,      warptosel,      {0} },
+    { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+    { MODKEY,                       XK_l,      warptosel,      {0} },
+    // ...
+    { MODKEY|ShiftMask,             XK_h,      setmfact,       {.f = -0.01} },
+    { MODKEY|ShiftMask,             XK_h,      warptosel,      {0} },
+    { MODKEY|ShiftMask,             XK_l,      setmfact,       {.f = +0.01} },
+    { MODKEY|ShiftMask,             XK_l,      warptosel,      {0} },
+
+    // Window movement or resizing
+    { MOD4KEY,                      XK_j,      moveresize,     {.v = (int []){ 0, 48, 0, 0 }}},
+    { MOD4KEY,                      XK_k,      moveresize,     {.v = (int []){ 0, -48, 0, 0 }}},
+    { MOD4KEY,                      XK_h,      moveresize,     {.v = (int []){ -48, 0, 0, 0 }}},
+    { MOD4KEY,                      XK_l,      moveresize,     {.v = (int []){ 48, 0, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_j,      moveresize,     {.v = (int []){ 0, 2, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_k,      moveresize,     {.v = (int []){ 0, -2, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_l,      moveresize,     {.v = (int []){ 4, 0, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_h,      moveresize,     {.v = (int []){ -4, 0, 0, 0 }}},
+    // ...
+    { MOD4KEY|ControlMask,          XK_d,      moveresize,     {.v = (int []){ 0, 1, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_u,      moveresize,     {.v = (int []){ 0, -1, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_a,      moveresize,     {.v = (int []){-1, 0, 0, 0 }}},
+    { MOD4KEY|ControlMask,          XK_e,      moveresize,     {.v = (int []){ 1, 0, 0, 0 }}},
+    // ...
+    { MOD4KEY|ShiftMask,            XK_j,      moveresize,     {.v = (int []){ 0, 0, 0, 48 }}},
+    { MOD4KEY|ShiftMask,            XK_k,      moveresize,     {.v = (int []){ 0, 0, 0, -48 }}},
+    { MOD4KEY|ShiftMask,            XK_l,      moveresize,     {.v = (int []){ 0, 0, 48, 0 }}},
+    { MOD4KEY|ShiftMask,            XK_h,      moveresize,     {.v = (int []){ 0, 0, -48, 0 }}},
+
+    // return (Sets client as master)
+    { MODKEY,                       XK_Return, untogglefloating, {0} },
+    { MODKEY,                       XK_Return, zoom,           {0} },
+    { MODKEY,                       XK_Return, warptosel,      {0} },
+
+    // Layout stuff
+    { MODKEY,                       XK_t,      untogglefloating, {0} },
+    { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+    // ...
+    { MODKEY,                       XK_f,      togglefloating, {0} },
+    { MOD4KEY,                      XK_f,      togglefloating, {0} },
+    // ...
+    { MODKEY,                       XK_m,      untogglefloating,      {0} },
+    { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+
+    // Multiple monitors
+    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+    { MODKEY,                       XK_comma,  warptosel,      {0} },
+    { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+    { MODKEY,                       XK_period, warptosel,      {0} },
+    // ...
+    { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+
+    // Tag manipulation
+    { MODKEY,                       XK_Tab,    vieworprev,     {0} },
+    { MODKEY,                       XK_0,      vieworprev,     {.ui = ~0 } },
+    { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+    // ... (name tag)
+    { MODKEY,                     XK_apostrophe, nametag,      {0} },
+    // ... (p/n)
+    { MODKEY|ControlMask,           XK_p,      shiftview,      {.i = -1 } },
+    { MODKEY|ControlMask,           XK_n,      shiftview,      {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_p,      shifttag,       {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_p,      shiftview,      {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_n,      shifttag,       {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_n,      shiftview,      {.i = +1 } },
+    // ... (shift sel client's tags)
+    { MODKEY|ControlMask,           XK_comma,  shifttag,       {.i = -1 } },
+    { MODKEY|ControlMask,           XK_period, shifttag,       {.i = +1 } },
+    // ...
     TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
     TAGKEYS(                        XK_3,                      2)
@@ -189,8 +206,15 @@ static Key keys[] = {
     TAGKEYS(                        XK_7,                      6)
     TAGKEYS(                        XK_8,                      7)
     TAGKEYS(                        XK_9,                      8)
+
+    // Quit and close
+    { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
     { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-//  { MODKEY|ShiftMask|ControlMask, XK_q,      logoutf,        {0} },
+
+    /* unused (stored just in case)
+    { MODKEY|ShiftMask|ControlMask, XK_q,      logoutf,        {0} },
+    { MOD4KEY,                      XK_y,      spawn,          SHCMD("sleep 1 && xdotool key --clearmodifiers Shift+Insert") },
+    */
 
 };
 
@@ -201,26 +225,26 @@ static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-
+    //
 	{ ClkWinTitle,          0,              Button2,       untogglefloating,{0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkWinTitle,          MODKEY,         Button4,        setmfact,       {.f = -0.05} },
 	{ ClkWinTitle,          MODKEY,         Button5,        setmfact,       {.f = +0.05} },
 	{ ClkWinTitle,          MODKEY|ShiftMask,Button4,       setmfact,       {.f = -0.01} },
 	{ ClkWinTitle,          MODKEY|ShiftMask,Button5,       setmfact,       {.f = +0.01} },
-
+    //
 	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
-
+	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
+    //
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-
+    //
+	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
 	{ ClkTagBar,            0,              Button1,        vieworprev,     {0} }, // left click
 	{ ClkTagBar,            MODKEY,         Button1,        toggleview,     {0} },
-
 	{ ClkTagBar,            0,              Button2,        toggleview,     {0} }, // middle click
 	{ ClkTagBar,            MODKEY,         Button2,        toggleview,     {0} },
-
 	{ ClkTagBar,            0,              Button3,        tag,            {0} }, // right click
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };

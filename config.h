@@ -259,7 +259,7 @@ shiftview(const Arg *arg) {
         shifted.ui = selmon->tagset[selmon->seltags] >> (- arg->i)
            | selmon->tagset[selmon->seltags] << (LENGTH(tags) + arg->i);
 
-    tag(&shifted);
+    view(&shifted);
 }
 
 void
@@ -274,7 +274,7 @@ shifttag(const Arg *arg) {
         shifted.ui = selmon->sel->tags >> (- arg->i)
            | selmon->sel->tags << (LENGTH(tags) + arg->i);
 
-    view(&shifted);
+    tag(&shifted);
 }
 
 void

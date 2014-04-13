@@ -65,9 +65,6 @@ static void untogglefloating(const Arg *arg);
 static void togglemouse(const Arg *arg);
 
 
-/* CUSTOM enums */
-enum {DIR_RIGHT, DIR_UP, DIR_LEFT, DIR_DOWN};
-
 /* key definitions */
 #define MODKEY Mod1Mask
 #define MOD4KEY Mod4Mask

@@ -293,6 +293,10 @@ void
 shifttag(const Arg *arg) {
     Arg shifted;
 
+    if(!selmon->sel) {
+        return;
+    }
+
     if(arg->i > 0) // left circular shift
         shifted.ui = (selmon->sel->tags << arg->i)
            | (selmon->sel->tags >> (LENGTH(tags) - arg->i));

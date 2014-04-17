@@ -118,9 +118,11 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_k,      untogglefloating,         {0} },
 
     //
-    { MODKEY,                       XK_b,      togglebar,      {0} },
-    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+    { MODKEY|ControlMask,           XK_b,      togglebar,      {0} },
+    { MODKEY|ControlMask,           XK_d,      incnmaster,     {.i = -1 } },
+    { MODKEY|ControlMask|ShiftMask, XK_d,      incnmaster,     {.i = -9999 } },
+    { MODKEY|ControlMask|ShiftMask, XK_d,      incnmaster,     {.i = +1 } },
+    { MODKEY|ControlMask,           XK_i,      incnmaster,     {.i = +1 } },
 
     // h/l (resize verticle stack split)
     { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -162,7 +164,7 @@ static Key keys[] = {
     { MODKEY,                       XK_t,      untogglefloating, {0} },
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
     // ...
-    { MODKEY,                       XK_f,      togglefloating, {0} },
+    { MODKEY|ControlMask,           XK_f,      togglefloating, {0} },
     { MOD4KEY,                      XK_f,      togglefloating, {0} },
     // ...
     { MODKEY,                       XK_m,      untogglefloating,      {0} },

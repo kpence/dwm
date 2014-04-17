@@ -119,6 +119,7 @@ static Key keys[] = {
 
     //
     { MODKEY|ControlMask,           XK_b,      togglebar,      {0} },
+    { MOD4KEY,                      XK_b,      togglebar,      {0} },
     { MODKEY|ControlMask,           XK_d,      incnmaster,     {.i = -1 } },
     { MODKEY|ControlMask|ShiftMask, XK_d,      incnmaster,     {.i = -9999 } },
     { MODKEY|ControlMask|ShiftMask, XK_d,      incnmaster,     {.i = +1 } },

@@ -817,12 +817,11 @@ dirtomon(int dir) {
 
 void
 dmenuspawn(const Arg *arg) {
-   char monstr[2] = "0";
+   char monstr[1] = { '0' + selmon->num };
    const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-m", monstr, "-nb",
               normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf",
               selfgcolor, NULL };
    Arg a = { .v = dmenucmd };
-   monstr[0] = '0' + selmon->num;
    spawn(&a);
 }
 

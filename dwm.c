@@ -163,6 +163,11 @@ static void detachstack(Client *c);
 static Monitor *dirtomon(int dir);
 static void drawbar(Monitor *m);
 static void drawbars(void);
+
+static void drawsquare(Bool filled, Bool empty, Bool invert, unsigned long col[ColLast]);
+static void drawtext(const char *text, unsigned long col[ColLast], Bool invert);
+static void dmenuspawn(const Arg *arg);
+
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
@@ -694,11 +699,19 @@ dirtomon(int dir)
 }
 
 void
-drawbar(Monitor *m)
-{
-	int x, w, tw = 0;
-	int boxs = drw->fonts->h / 9;
-	int boxw = drw->fonts->h / 6 + 2;
+dmenuspawn(const Arg *arg) {
+   char monstr[2] = "0";
+   const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-m", monstr, "-nb",
+              normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf",
+              selfgcolor, NULL };
+   Arg a = { .v = dmenucmd };
+   monstr[0] = '0' + selmon->num;
+   spawn(&a);
+}
+
+void
+drawbar(Monitor *m) {
+	int x;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 

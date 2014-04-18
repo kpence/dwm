@@ -192,6 +192,7 @@ static void drawbar(Monitor *m);
 static void drawbars(void);
 static void drawsquare(Bool filled, Bool empty, Bool invert, unsigned long col[ColLast]);
 static void drawtext(const char *text, unsigned long col[ColLast], Bool invert);
+static void dmenuspawn(const Arg *arg);
 static void enternotify(XEvent *e);
 static void expose(XEvent *e);
 static void focus(Client *c);
@@ -812,6 +813,17 @@ dirtomon(int dir) {
 	else
 		for(m = mons; m->next != selmon; m = m->next);
 	return m;
+}
+
+void
+dmenuspawn(const Arg *arg) {
+   char monstr[2] = "0";
+   const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-m", monstr, "-nb",
+              normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf",
+              selfgcolor, NULL };
+   Arg a = { .v = dmenucmd };
+   monstr[0] = '0' + selmon->num;
+   spawn(&a);
 }
 
 void

@@ -700,7 +700,7 @@ dirtomon(int dir)
 
 void
 dmenuspawn(const Arg *arg) {
-   char monstr[1] = { '0' + selmon->num };
+   const char monstr[1] = { '0' + selmon->num };
    const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-m", monstr, "-nb",
               normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf",
               selfgcolor, NULL };

@@ -78,7 +78,7 @@ static void togglemouse(const Arg *arg);
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-//static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *slmenucmd[] = { "slmenu", NULL };
@@ -89,7 +89,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 
     // Spawners
-    { MODKEY,                       XK_o,      dmenuspawn,     {0} },
+    { MODKEY,                       XK_o,      spawn,          {.v = dmenucmd } },
     { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
     // ...

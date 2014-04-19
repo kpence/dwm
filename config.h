@@ -80,7 +80,7 @@ static void spawnifselwin(const Arg *arg);
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-//static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *emacscmd[]  = { "emacs", NULL };
@@ -95,7 +95,6 @@ static Key keys[] = {
 	/* modifier			key	   function	   argument */
 
     // Spawners
-<<<<<<< HEAD
     { MODKEY,			        XK_o,      spawn,	       {.v = dmenucmd } },
     //{ MODKEY|ShiftMask,		    XK_Return, spawn,	       {.v = termcmd } },
     { MODKEY|ShiftMask,		    XK_t,      spawn,	       {.v = termcmd } },
@@ -110,11 +109,6 @@ static Key keys[] = {
 
     { MODKEY|ShiftMask,		    XK_a,      spawn,	       SHCMD("urxvt -e alsamixer") },
     { MOD4KEY|ControlMask,		XK_s,      spawn,	       SHCMD("scrot-copy.sh") },
-=======
-    { MODKEY,                       XK_o,      dmenuspawn,     {0} },
-    { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
->>>>>>> 606a6e4 (dmenu fix)
     // ...
     //{ MODKEY|ShiftMask,	      XK_d,	 spawn,		 SHCMD("dwb") },
     { MODKEY|ControlMask,	    XK_t,      spawn,	       SHCMD("xsetroot -name $(date +%R)") },

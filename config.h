@@ -169,6 +169,7 @@ static Key keys[] = {
     { MOD4KEY,                      XK_f,      togglefloating, {0} },
     // ...
     { MODKEY,                       XK_m,      untogglefloating,      {0} },
+    { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[0]} },
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 
     // Multiple monitors
@@ -222,31 +223,30 @@ static Key keys[] = {
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 /* Button{1..5} are the left, middle, and right mouse buttons then scroll up and down respectively */
 static Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	/* click               event mask       button         function        argument */
+	{ ClkLtSymbol,         0,               Button1,       setlayout,      {0} },
+	{ ClkLtSymbol,         0,               Button3,       setlayout,      {.v = &layouts[2]} },
     //
-	{ ClkWinTitle,          0,              Button2,       untogglefloating,{0} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkWinTitle,          MODKEY,         Button4,        setmfact,       {.f = -0.05} },
-	{ ClkWinTitle,          MODKEY,         Button5,        setmfact,       {.f = +0.05} },
-	{ ClkWinTitle,          MODKEY|ShiftMask,Button4,       setmfact,       {.f = -0.01} },
-	{ ClkWinTitle,          MODKEY|ShiftMask,Button5,       setmfact,       {.f = +0.01} },
+	{ ClkWinTitle,         0,               Button2,       untogglefloating,{0} },
+	{ ClkWinTitle,         0,               Button2,       zoom,           {0} },
+	{ ClkWinTitle,         MODKEY,          Button4,       setmfact,       {.f = -0.05} },
+	{ ClkWinTitle,         MODKEY,          Button5,       setmfact,       {.f = +0.05} },
+	{ ClkWinTitle,         MODKEY|ShiftMask,Button4,       setmfact,       {.f = -0.01} },
+	{ ClkWinTitle,         MODKEY|ShiftMask,Button5,       setmfact,       {.f = +0.01} },
     //
-	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
-	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,       MODKEY,          Button2,       spawn,          {.v = termcmd } },
+	{ ClkStatusText,       MODKEY|ShiftMask,Button2,       spawn,          {.v = termcmd } },
     //
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,        MODKEY,          Button1,       movemouse,      {0} },
+	{ ClkClientWin,        MODKEY,          Button2,       togglefloating, {0} },
+	{ ClkClientWin,        MODKEY,          Button3,       resizemouse,    {0} },
     //
-	{ ClkStatusText,        MODKEY,         Button2,        spawn,          {.v = termcmd } },
-	{ ClkTagBar,            0,              Button1,        vieworprev,     {0} }, // left click
-	{ ClkTagBar,            MODKEY,         Button1,        toggleview,     {0} },
-	{ ClkTagBar,            0,              Button2,        toggleview,     {0} }, // middle click
-	{ ClkTagBar,            MODKEY,         Button2,        toggleview,     {0} },
-	{ ClkTagBar,            0,              Button3,        tag,            {0} }, // right click
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTagBar,           0,               Button1,       vieworprev,     {0} }, // left click
+	{ ClkTagBar,           MODKEY,          Button1,       toggleview,     {0} },
+	{ ClkTagBar,           0,               Button2,       toggleview,     {0} }, // middle click
+	{ ClkTagBar,           MODKEY,          Button2,       toggleview,     {0} },
+	{ ClkTagBar,           0,               Button3,       tag,            {0} }, // right click
+	{ ClkTagBar,           MODKEY,          Button3,       toggletag,      {0} },
 };
 
 /***********************************************************************************************/

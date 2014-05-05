@@ -169,8 +169,10 @@ static Key keys[] = {
     { MOD4KEY,                      XK_f,      togglefloating, {0} },
     // ...
     { MODKEY,                       XK_m,      untogglefloating,      {0} },
-    { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[0]} },
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+    { MODKEY|ShiftMask,             XK_m,      untogglefloating,      {0} },
+    { MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[0]} },
+    { MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
 
     // Multiple monitors
     { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },

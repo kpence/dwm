@@ -92,6 +92,7 @@ static Key keys[] = {
     { MODKEY,                       XK_o,      spawn,          {.v = dmenucmd } },
     { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
+    { MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("urxvt -e alsamixer") },
     // ...
     { MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("wpa_gui") },
     { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dwb") },

@@ -94,9 +94,9 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
     { MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("urxvt -e alsamixer") },
     // ...
-    { MODKEY|ShiftMask,             XK_w,      spawn,          SHCMD("wpa_gui") },
     { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dwb") },
-    { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
+    { MODKEY|ControlMask,           XK_t,      spawn,          SHCMD("xsetroot -name $(date +%R)") },
+    { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog;xsetroot -name $(date +\"%a %R\")") },
     // ...
     { 0,                            XK_Print,  spawn,          SHCMD("scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pic/scrot/'") },
     // ... (hardware buttons)

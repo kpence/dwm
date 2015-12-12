@@ -96,9 +96,11 @@ static Key keys[] = {
     // ...
     { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dwb") },
     { MODKEY|ControlMask,           XK_t,      spawn,          SHCMD("xsetroot -name $(date +%R)") },
-    { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog;xsetroot -name $(date +\"%a %R\")") },
+    { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
     // ...
     { 0,                            XK_Print,  spawn,          SHCMD("scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pic/scrot/'") },
+    { MODKEY,                       XK_equal,  spawn,          SHCMD("incvolume.sh m u") },
+    { MODKEY,                       XK_minus,  spawn,          SHCMD("incvolume.sh m d") },
     // ... (hardware buttons)
     { 0,                           0x1008ff13, spawn,          SHCMD("incvolume.sh m u") },
     { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh m d") },

@@ -101,6 +101,8 @@ static Key keys[] = {
     { 0,                            XK_Print,  spawn,          SHCMD("scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pic/scrot/'") },
     { MODKEY,                       XK_equal,  spawn,          SHCMD("incvolume.sh m u") },
     { MODKEY,                       XK_minus,  spawn,          SHCMD("incvolume.sh m d") },
+    { MODKEY,                       XK_Up,     spawn,          SHCMD("incvolume.sh m u") },
+    { MODKEY,                       XK_Down,   spawn,          SHCMD("incvolume.sh m d") },
     // ... (hardware buttons)
     { 0,                           0x1008ff14, spawn,          SHCMD("mpc play") },
     { ShiftMask,                   0x1008ff14, spawn,          SHCMD("mpc pause") },

@@ -198,6 +198,8 @@ static Key keys[] = {
     // ... (name tag)
     { MODKEY,                     XK_apostrophe, nametag,      {0} },
     // ... (p/n)
+    { MODKEY,                       XK_Prior,  shiftview,      {.i = -1 } },
+    { MODKEY,                       XK_Next,   shiftview,      {.i = +1 } },
     { MODKEY|ControlMask,           XK_p,      shiftview,      {.i = -1 } },
     { MODKEY|ControlMask,           XK_n,      shiftview,      {.i = +1 } },
     { MODKEY|ShiftMask,             XK_p,      shifttag,       {.i = -1 } },

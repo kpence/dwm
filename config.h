@@ -103,6 +103,8 @@ static Key keys[] = {
     { MODKEY,                       XK_minus,  spawn,          SHCMD("incvolume.sh m d") },
     { MODKEY,                       XK_Up,     spawn,          SHCMD("incvolume.sh m u") },
     { MODKEY,                       XK_Down,   spawn,          SHCMD("incvolume.sh m d") },
+    { MODKEY,                       XK_Left,  shifttag,       {.i = -1 } },
+    { MODKEY,                       XK_Right, shifttag,       {.i = +1 } },
     // ... (hardware buttons)
     { 0,                           0x1008ff14, spawn,          SHCMD("mpc play") },
     { ShiftMask,                   0x1008ff14, spawn,          SHCMD("mpc pause") },

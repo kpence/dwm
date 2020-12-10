@@ -62,7 +62,6 @@ static void focusstackf(const Arg *arg);
 static void nametag(const Arg *arg);
 static void moveresize(const Arg *arg);
 static void untogglefloating(const Arg *arg);
-static void togglemouse(const Arg *arg);
 
 
 /* key definitions */
@@ -81,9 +80,8 @@ static void togglemouse(const Arg *arg);
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
+static const char *emacscmd[]  = { "emacs", NULL };
 static const char *slmenucmd[] = { "slmenu", NULL };
-static const char *touchpadon[] = { "touchpad", "1", NULL };
-static const char *touchpadoff[] = { "touchpad", "0", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -93,13 +91,14 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_t,      spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_f,      spawn,          {.v = browsercmd } },
+    { MODKEY|ShiftMask,             XK_e,      spawn,          {.v = emacscmd } },
     { MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("urxvt -e alsamixer") },
     // ...
-    { MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dwb") },
+    //{ MODKEY|ShiftMask,             XK_d,      spawn,          SHCMD("dwb") },
     { MODKEY|ControlMask,           XK_t,      spawn,          SHCMD("xsetroot -name $(date +%R)") },
     { MODKEY|ControlMask,           XK_c,      spawn,          SHCMD("clog") },
     // ...
-    { 0,                            XK_Print,  spawn,          SHCMD("scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pic/scrot/'") },
+    //{ 0,                            XK_Print,  spawn,          SHCMD("scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f ~/pic/scrot/'") },
     { MODKEY,                       XK_equal,  spawn,          SHCMD("incvolume.sh m u") },
     { MODKEY,                       XK_minus,  spawn,          SHCMD("incvolume.sh m d") },
     { MODKEY,                       XK_Up,     spawn,          SHCMD("incvolume.sh m u") },
@@ -114,8 +113,6 @@ static Key keys[] = {
     { 0,                           0x1008ff11, spawn,          SHCMD("incvolume.sh m d") },
     { MODKEY,                      0x1008ff11, spawn,          SHCMD("incvolume.sh s u") },
     { MODKEY,                      0x1008ff13, spawn,          SHCMD("incvolume.sh s d") },
-    { 0,                           0x1008ff41, togglemouse,    {0} },
-    { 0,                           0x1008ff2d, spawn,          SHCMD("xscreensaver-command -l") },
 
 
     // j/k (move/toggle selected clients)
@@ -266,21 +263,6 @@ static Button buttons[] = {
 
 /***********************************************************************************************/
 
-
-void
-togglemouse(const Arg *arg) {
-    Arg s;
-    static int on = 0;
-    if (on == 1) {
-        s.v = touchpadon;
-        on = 0;
-    }
-    else {
-        s.v = touchpadoff;
-        on = 1;
-    }
-    spawn(&s);
-}
 
 void
 untogglefloating(const Arg *arg) {

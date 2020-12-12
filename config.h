@@ -388,8 +388,8 @@ focusstackf(const Arg *arg) {
 }
 
 void
-nametag(const Arg *arg) {
-    char *p, name[MAX_TAGLEN];
+nametag(const Arg *earg) {
+    char *p, name_prefix[3], name[MAX_TAGLEN-3];
     FILE *f;
     int i;
 
@@ -409,11 +409,16 @@ nametag(const Arg *arg) {
 
     for(i = 0; i < LENGTH(tags); i++) {
 	if(selmon->tagset[selmon->seltags] & (1 << i)) {
+	    name_prefix[0] = defaulttags[i];
 	    if (name[0] == '\0') {
-		name[0] = defaulttags[i];
-		name[1] = '\0';
+		name_prefix[1] = '\0';
 	    }
-	    strcpy(tags[i], name);
+	    else {
+		name_prefix[1] = ' ';
+		name_prefix[2] = '\0';
+	    }
+	    strcpy(tags[i], name_prefix);
+	    strcat(tags[i], name);
 	}
     }
     drawbars();

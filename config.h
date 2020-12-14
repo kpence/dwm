@@ -81,7 +81,7 @@ static void loadsession();
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
-static const char *browsercmd[]  = { "firefox", NULL };
+static const char *browsercmd[]  = { "brave", NULL };
 static const char *emacscmd[]  = { "emacs", NULL };
 static const char *slmenucmd[] = { "slmenu", NULL };
 

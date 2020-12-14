@@ -62,6 +62,8 @@ static void focusstackf(const Arg *arg);
 static void nametag(const Arg *arg);
 static void moveresize(const Arg *arg);
 static void untogglefloating(const Arg *arg);
+static void saveandquit(const Arg *arg);
+static void loadsession();
 
 
 /* key definitions */
@@ -87,7 +89,7 @@ static Key keys[] = {
 	/* modifier			key	   function	   argument */
 
     // Spawners
-    { MODKEY,			    XK_o,      spawn,	       {.v = dmenucmd } },
+    { MODKEY,			        XK_o,      spawn,	       {.v = dmenucmd } },
     { MODKEY|ShiftMask,		    XK_Return, spawn,	       {.v = termcmd } },
     { MODKEY|ShiftMask,		    XK_t,      spawn,	       {.v = termcmd } },
     { MODKEY|ShiftMask,		    XK_f,      spawn,	       {.v = browsercmd } },
@@ -98,7 +100,7 @@ static Key keys[] = {
     { MODKEY|ControlMask,	    XK_t,      spawn,	       SHCMD("xsetroot -name $(date +%R)") },
     { MODKEY|ControlMask,	    XK_c,      spawn,	       SHCMD("clog") },
     // ...
-    //{ 0,			      XK_Print,  spawn,		 SHCMD("scrot '%Y-%m-%d_$wx$h.png' -s -e 'mv $f ~/pic/scrot/'") },
+    //{ 0,			        XK_Print,  spawn,		 SHCMD("scrot '%Y-%m-%d_$wx$h.png' -s -e 'mv $f ~/pic/scrot/'") },
     { MODKEY,			    XK_equal,  spawn,	       SHCMD("incvolume.sh m u") },
     { MODKEY,			    XK_minus,  spawn,	       SHCMD("incvolume.sh m d") },
     //{ MODKEY,			    XK_Up,     spawn,	       SHCMD("incvolume.sh m u") },
@@ -222,7 +224,7 @@ static Key keys[] = {
 
     // Quit and close
     { MODKEY|ShiftMask,		    XK_c,      killclient,     {0} },
-    { MODKEY|ShiftMask,		    XK_q,      quit,	       {0} },
+    { MODKEY|ShiftMask,		    XK_q,      saveandquit,	   {0} },
 
     /* unused (stored just in case)
     { MODKEY|ShiftMask|ControlMask, XK_q,      logoutf,        {0} },
@@ -388,7 +390,7 @@ focusstackf(const Arg *arg) {
 }
 
 void
-nametag(const Arg *earg) {
+nametag(const Arg *arg) {
     char *p, name_prefix[3], name[MAX_TAGLEN-3];
     FILE *f;
     int i;
@@ -398,7 +400,7 @@ nametag(const Arg *earg) {
 	fprintf(stderr, "dwm: popen 'dmenu < /dev/null' failed%s%s\n", errno ? ": " : "", errno ? strerror(errno) : "");
 	return;
     }
-    if (!(p = fgets(name, MAX_TAGLEN, f)) && (i = errno) && ferror(f))
+    if (!(p = fgets(name, MAX_TAGLEN-3, f)) && (i = errno) && ferror(f))
 	fprintf(stderr, "dwm: fgets failed: %s\n", strerror(i));
     if (pclose(f) < 0)
 	fprintf(stderr, "dwm: pclose failed: %s\n", strerror(errno));
@@ -424,4 +426,30 @@ nametag(const Arg *earg) {
     drawbars();
 }
 
+void
+saveandquit(const Arg *arg)
+{
+    char session[(MAX_TAGLEN+1) * LENGTH(tags)];
+    FILE* f;
+    int i;
+
+    // Get session information
+    // TODO -- save the window locations.
+    strcpy(session, tags[0]);
+    strcat(session, "\n");
+    for(i = 1; i < LENGTH(tags); i++) {
+        strcat(session, tags[i]);
+        strcat(session, "\n");
+    }
+
+    // Save in a /tmp file
+    f = fopen("/tmp/.dwm.session", "w");
+    fprintf(f, "%s", session);
+    fclose(f);
+
+    // Now quit
+    quit(arg);
+}
+
+#include "loadsession.c"
 #include "moveresize.c"

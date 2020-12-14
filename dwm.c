@@ -1764,6 +1764,8 @@ setup(void) {
 	/* init bars */
 	updatebars();
 	updatestatus();
+    /* ~CUSTOM~ session code */
+    loadsession();
 	/* EWMH support per view */
 	XChangeProperty(dpy, root, netatom[NetSupported], XA_ATOM, 32,
 			PropModeReplace, (unsigned char *) netatom, NetLast);

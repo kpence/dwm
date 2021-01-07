@@ -90,7 +90,7 @@ static Key keys[] = {
 
     // Spawners
     { MODKEY,			        XK_o,      spawn,	       {.v = dmenucmd } },
-    { MODKEY|ShiftMask,		    XK_Return, spawn,	       {.v = termcmd } },
+    //{ MODKEY|ShiftMask,		    XK_Return, spawn,	       {.v = termcmd } },
     { MODKEY|ShiftMask,		    XK_t,      spawn,	       {.v = termcmd } },
     { MODKEY|ShiftMask,		    XK_f,      spawn,	       {.v = browsercmd } },
     { MODKEY|ShiftMask,		    XK_e,      spawn,	       {.v = emacscmd } },

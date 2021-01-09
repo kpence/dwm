@@ -64,8 +64,7 @@ static void moveresize(const Arg *arg);
 static void untogglefloating(const Arg *arg);
 static void saveandquit(const Arg *arg);
 static void loadsession();
-static void sendkey(unsigned int mod, KeySym keysym);
-static void sendkeyiftagsequal(const Arg *arg);
+static void spawnifselwin(const Arg *arg);
 
 
 /* key definitions */
@@ -171,11 +170,7 @@ static Key keys[] = {
     { MODKEY,			    XK_Return, untogglefloating, {0} },
     { MODKEY,			    XK_Return, zoom,	       {0} },
     { MODKEY,			    XK_Return, warptosel,      {0} },
-    { MODKEY,			    XK_Return, spawnifselwin,  {.v = (const Arg*[])
-                                                        {
-                                                          {.v = (const char*)"Emacs"},
-                                                          {.v = SHCMD("emacs -e \"org-meta-return\"")}
-                                                        }}},
+    // { MODKEY,			    XK_Return, spawnifselwin,  { .v = (const char*[]){ "Emacs", "/bin/sh", "-c", "emacs -e \"org-meta-return\"", NULL } } },
 
     // Layout stuff
     { MODKEY,			    XK_t,      untogglefloating, {0} },
@@ -459,16 +454,15 @@ saveandquit(const Arg *arg)
 
 void
 spawnifselwin(const Arg *arg) {
-	const char *class, *instance, *expected_class;
-  const Arg *spawncmd;
+	const char *class, *instance;
 	unsigned int i;
 	Monitor *m;
   Client* c;
 	XClassHint ch = { NULL, NULL };
 
   /* arguments */
-  expected_class = (arg->v[0])->v;
-  spawncmd = arg->v[1];
+  const Arg spawncmd = (const Arg)SHCMD(&(arg->v[1]));
+  const char *expected_class = ((const char*)(arg->v))[0];
 
 	/* rule matching */
   c = selmon->sel;
@@ -479,7 +473,7 @@ spawnifselwin(const Arg *arg) {
 
   if(strstr(class, expected_class))
     {
-      spawn(spawncmd);
+      spawn(&spawncmd);
     }
 	if(ch.res_class)
 		XFree(ch.res_class);

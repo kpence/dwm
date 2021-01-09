@@ -64,6 +64,8 @@ static void moveresize(const Arg *arg);
 static void untogglefloating(const Arg *arg);
 static void saveandquit(const Arg *arg);
 static void loadsession();
+static void sendkey(unsigned int mod, KeySym keysym);
+static void sendkeyiftagsequal(const Arg *arg);
 
 
 /* key definitions */
@@ -83,7 +85,6 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, 
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *emacscmd[]  = { "emacs", NULL };
-static const char *slmenucmd[] = { "slmenu", NULL };
 
 static Key keys[] = {
 	/* modifier			key	   function	   argument */
@@ -170,6 +171,11 @@ static Key keys[] = {
     { MODKEY,			    XK_Return, untogglefloating, {0} },
     { MODKEY,			    XK_Return, zoom,	       {0} },
     { MODKEY,			    XK_Return, warptosel,      {0} },
+    { MODKEY,			    XK_Return, spawnifselwin,  {.v = (const Arg*[])
+                                                        {
+                                                          {.v = (const char*)"Emacs"},
+                                                          {.v = SHCMD("emacs -e \"org-meta-return\"")}
+                                                        }}},
 
     // Layout stuff
     { MODKEY,			    XK_t,      untogglefloating, {0} },
@@ -449,6 +455,37 @@ saveandquit(const Arg *arg)
 
     // Now quit
     quit(arg);
+}
+
+void
+spawnifselwin(const Arg *arg) {
+	const char *class, *instance, *expected_class;
+  const Arg *spawncmd;
+	unsigned int i;
+	Monitor *m;
+  Client* c;
+	XClassHint ch = { NULL, NULL };
+
+  /* arguments */
+  expected_class = (arg->v[0])->v;
+  spawncmd = arg->v[1];
+
+	/* rule matching */
+  c = selmon->sel;
+	c->isfloating = c->tags = 0;
+	XGetClassHint(dpy, c->win, &ch);
+	class    = ch.res_class ? ch.res_class : broken;
+	instance = ch.res_name  ? ch.res_name  : broken;
+
+  if(strstr(class, expected_class))
+    {
+      spawn(spawncmd);
+    }
+	if(ch.res_class)
+		XFree(ch.res_class);
+	if(ch.res_name)
+		XFree(ch.res_name);
+	c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
 }
 
 #include "loadsession.c"

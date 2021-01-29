@@ -84,6 +84,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, 
 static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *emacscmd[]  = { "emacs", NULL };
+static const char *reapercmd[]  = { "reaper", NULL };
 
 static Key keys[] = {
 	/* modifier			key	   function	   argument */
@@ -94,6 +95,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,		    XK_t,      spawn,	       {.v = termcmd } },
     { MODKEY|ShiftMask,		    XK_f,      spawn,	       {.v = browsercmd } },
     { MODKEY|ShiftMask,		    XK_e,      spawn,	       {.v = emacscmd } },
+    { MODKEY|ShiftMask,		    XK_r,      spawn,	       {.v = reapercmd } },
     { MODKEY|ShiftMask,		    XK_a,      spawn,	       SHCMD("urxvt -e alsamixer") },
     // ...
     //{ MODKEY|ShiftMask,	      XK_d,	 spawn,		 SHCMD("dwb") },

@@ -85,6 +85,9 @@ static const char *termcmd[]  = { "urxvt", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *emacscmd[]  = { "emacs", NULL };
 static const char *reapercmd[]  = { "reaper", NULL };
+static const char *vmwarecmd[]  = { "vmware", NULL };
+static const char *discordcmd[]  = { "discord", NULL };
+static const char *pycharmcmd[]  = { "pycharm", NULL };
 
 static Key keys[] = {
 	/* modifier			key	   function	   argument */
@@ -96,6 +99,9 @@ static Key keys[] = {
     { MODKEY|ShiftMask,		    XK_f,      spawn,	       {.v = browsercmd } },
     { MODKEY|ShiftMask,		    XK_e,      spawn,	       {.v = emacscmd } },
     { MODKEY|ShiftMask,		    XK_r,      spawn,	       {.v = reapercmd } },
+    { MOD4KEY|ShiftMask,		  XK_d,      spawn,	       {.v = discordcmd } },
+    { MOD4KEY|ShiftMask,		  XK_v,      spawn,	       {.v = vmwarecmd } },
+    { MOD4KEY|ShiftMask,		  XK_p,      spawn,	       {.v = pycharmcmd } },
     { MODKEY|ShiftMask,		    XK_a,      spawn,	       SHCMD("urxvt -e alsamixer") },
     // ...
     //{ MODKEY|ShiftMask,	      XK_d,	 spawn,		 SHCMD("dwb") },

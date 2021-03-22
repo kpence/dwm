@@ -103,6 +103,7 @@ static Key keys[] = {
     { MOD4KEY|ShiftMask,		  XK_v,      spawn,	       {.v = vmwarecmd } },
     { MOD4KEY|ShiftMask,		  XK_p,      spawn,	       {.v = pycharmcmd } },
     { MODKEY|ShiftMask,		    XK_a,      spawn,	       SHCMD("urxvt -e alsamixer") },
+    { MOD4KEY|ControlMask,		XK_s,      spawn,	       SHCMD("scrot-copy.sh") },
     // ...
     //{ MODKEY|ShiftMask,	      XK_d,	 spawn,		 SHCMD("dwb") },
     { MODKEY|ControlMask,	    XK_t,      spawn,	       SHCMD("xsetroot -name $(date +%R)") },
@@ -233,7 +234,7 @@ static Key keys[] = {
 
     // Quit and close
     { MODKEY|ShiftMask,		    XK_c,      killclient,     {0} },
-    { MODKEY|ShiftMask,		    XK_q,      saveandquit,	   {0} },
+    { MOD4KEY|ShiftMask,		  XK_q,      saveandquit,	   {0} },
 
     /* unused (stored just in case)
     { MODKEY|ShiftMask|ControlMask, XK_q,      logoutf,        {0} },

@@ -88,6 +88,8 @@ static const char *reapercmd[]  = { "reaper", NULL };
 static const char *vmwarecmd[]  = { "vmware", NULL };
 static const char *discordcmd[]  = { "discord", NULL };
 static const char *pycharmcmd[]  = { "pycharm", NULL };
+static const char *sendclickvmwarecmd[]  = { "send-click--vmware.sh", NULL };
+static const char *movemousesupermemocmd[]  = { "move-mouse--supermemo.sh", NULL };
 
 static Key keys[] = {
 	/* modifier			key	   function	   argument */
@@ -102,6 +104,9 @@ static Key keys[] = {
     { MOD4KEY|ShiftMask,		  XK_d,      spawn,	       {.v = discordcmd } },
     { MOD4KEY|ShiftMask,		  XK_v,      spawn,	       {.v = vmwarecmd } },
     { MOD4KEY|ShiftMask,		  XK_p,      spawn,	       {.v = pycharmcmd } },
+    { MOD4KEY,		            XK_g,      spawn,	       {.v = movemousesupermemocmd } },
+    { MOD4KEY|ControlMask,		XK_g,      spawn,	       {.v = sendclickvmwarecmd } },
+
     { MODKEY|ShiftMask,		    XK_a,      spawn,	       SHCMD("urxvt -e alsamixer") },
     { MOD4KEY|ControlMask,		XK_s,      spawn,	       SHCMD("scrot-copy.sh") },
     // ...
